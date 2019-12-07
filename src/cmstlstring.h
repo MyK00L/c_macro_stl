@@ -30,16 +30,16 @@ cmstlstring cmstlstring_new_from_input(FILE *f, unsigned char space_is_separator
 	vector_char_push_back(&res.vc, 0);
 	return res;
 }
-void cmstlstring_append(cmstlstring *s, cmstlstring *to_append) {
-	for (size_t i = 0; i < to_append->vc.size - 1; ++i) {
-		vector_char_push_back(&s->vc, to_append->vc.data[i]);
-	}
-}
-void cmstlstring_push_back(cmstlstring *s, char c) { vector_char_insert(&s->vc, s->vc.size - 2, c); }
+void cmstlstring_push_back(cmstlstring *s, char c) { vector_char_insert(&s->vc, s->vc.size - 1, c); }
 void cmstlstring_pop_back(cmstlstring *s) { vector_char_erase(&s->vc, s->vc.size - 2); }
 char *cmstlstring_at(cmstlstring *s, size_t ind) {
 	assert(ind < s->vc.size - 1);
 	return s->vc.data + ind;
+}
+void cmstlstring_append(cmstlstring *s, cmstlstring *to_append) {
+	for (size_t i = 0; i < to_append->vc.size - 1; ++i) {
+		cmstlstring_push_back(s, to_append->vc.data[i]);
+	}
 }
 
 #endif

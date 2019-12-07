@@ -26,7 +26,7 @@
 	void vector_##T##_push_back(vector_##T *v, T val) {                                                                                                                                                  \
 		if (v->size == v->capacity) {                                                                                                                                                                      \
 			v->capacity *= 2;                                                                                                                                                                                \
-			assert(v->data = realloc(v->data, sizeof(T) * v->capacity));                                                                                                                                     \
+			assert((v->data = realloc(v->data, sizeof(T) * v->capacity)));                                                                                                                                   \
 		}                                                                                                                                                                                                  \
 		v->data[v->size++] = val;                                                                                                                                                                          \
 	}                                                                                                                                                                                                    \
@@ -41,7 +41,7 @@
 		v->size--;                                                                                                                                                                                         \
 		if (v->size < v->capacity / 4) {                                                                                                                                                                   \
 			v->capacity /= 2;                                                                                                                                                                                \
-			assert(v->data = realloc(v->data, sizeof(T) * v->capacity));                                                                                                                                     \
+			assert((v->data = realloc(v->data, sizeof(T) * v->capacity)));                                                                                                                                   \
 		}                                                                                                                                                                                                  \
 	}                                                                                                                                                                                                    \
 	void vector_##T##_erase(vector_##T *v, size_t ind) {                                                                                                                                                 \
@@ -54,14 +54,14 @@
 		v->size = 0;                                                                                                                                                                                       \
 		if (v->size < v->capacity / 4) {                                                                                                                                                                   \
 			v->capacity = 2;                                                                                                                                                                                 \
-			assert(v->data = realloc(v->data, sizeof(T) * v->capacity));                                                                                                                                     \
+			assert((v->data = realloc(v->data, sizeof(T) * v->capacity)));                                                                                                                                   \
 		}                                                                                                                                                                                                  \
 	}                                                                                                                                                                                                    \
 	void vector_##T##_resize(vector_##T *v, size_t new_size, T val) {                                                                                                                                    \
 		if (new_size > v->size) {                                                                                                                                                                          \
 			if (new_size >= v->capacity) {                                                                                                                                                                   \
 				v->capacity = new_size * 2;                                                                                                                                                                    \
-				assert(v->data = realloc(v->data, sizeof(T) * v->capacity));                                                                                                                                   \
+				assert((v->data = realloc(v->data, sizeof(T) * v->capacity)));                                                                                                                                 \
 			}                                                                                                                                                                                                \
 			for (; v->size < new_size; ++v->size) {                                                                                                                                                          \
 				v->data[v->size] = val;                                                                                                                                                                        \
@@ -71,7 +71,7 @@
 				v->capacity = new_size * 2;                                                                                                                                                                    \
 				if (v->capacity == 0)                                                                                                                                                                          \
 					v->capacity = 2;                                                                                                                                                                             \
-				assert(v->data = realloc(v->data, sizeof(T) * v->capacity));                                                                                                                                   \
+				assert((v->data = realloc(v->data, sizeof(T) * v->capacity)));                                                                                                                                 \
 			}                                                                                                                                                                                                \
 			v->size = new_size;                                                                                                                                                                              \
 		}                                                                                                                                                                                                  \
