@@ -43,6 +43,10 @@ uint64_t cchmh2(uint8_t *p, size_t key_size) {
 		res._2 = (cuckoo_hash_map_##Tk##_##Tv##_element *)calloc(res.size, sizeof(cuckoo_hash_map_##Tk##_##Tv##_element));                                                                                 \
 		return res;                                                                                                                                                                                        \
 	}                                                                                                                                                                                                    \
+	void cuckoo_hash_map_##Tk##_##Tv##_delete(cuckoo_hash_map_##Tk##_##Tv *chm) {                                                                                                                        \
+		free(chm->_1);                                                                                                                                                                                     \
+		free(chm->_2);                                                                                                                                                                                     \
+	}                                                                                                                                                                                                    \
 	uint8_t cuckoo_hash_map_##Tk##_##Tv##_count(cuckoo_hash_map_##Tk##_##Tv *chm, Tk key) {                                                                                                              \
 		return (chm->_1[cchmh1((uint8_t *)&key, sizeof(Tk)) % chm->size].k == key || chm->_2[cchmh2((uint8_t *)&key, sizeof(Tk)) % chm->size].k == key);                                                   \
 	}                                                                                                                                                                                                    \
