@@ -11,21 +11,24 @@ define_vector(char)
 		typedef struct {
 	vector_char vc;
 } cmstlstring;
+void cmstlstring_delete(cmstlstring *s) { vector_char_delete(&(s->vc)); }
 cmstlstring cmstlstring_new() {
 	cmstlstring res;
 	res.vc = vector_char_new();
 	vector_char_push_back(&res.vc, 0);
+	return res;
 }
 cmstlstring cmstlstring_new_from_input(FILE *f, unsigned char space_is_separator) {
 	cmstlstring res;
 	res.vc = vector_char_new();
 	char c;
-	while ((c = fgetc(f)) <= 32 && (c < 32 || !space_is_separator))
+	while ((c = fgetc(f)) < 32)
 		;
 	do {
 		vector_char_push_back(&res.vc, c);
-	} while ((c = fgetc(f)) > 32);
+	} while ((c = fgetc(f)) >= 32 && (!space_is_separator || c > 32));
 	vector_char_push_back(&res.vc, 0);
+	return res;
 }
 void cmstlstring_append(cmstlstring *s, cmstlstring *to_append) {
 	for (size_t i = 0; i < to_append->vc.size - 1; ++i) {
